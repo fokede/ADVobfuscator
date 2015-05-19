@@ -51,7 +51,7 @@ struct MetaString4<0, K, Indexes<I...>>
     // Runtime decryption. Most of the time, inlined
     inline const char* decrypt()
     {
-        for(int i = 0; i < sizeof...(I); ++i)
+        for(size_t i = 0; i < sizeof...(I); ++i)
             buffer_[i + 1] = decrypt(buffer_[i + 1]);
         buffer_[sizeof...(I) + 1] = 0;
         LOG("--- Select MetaString4 implementation #" << 0 << " with key 0x" << hex(buffer_[0]));
@@ -81,7 +81,7 @@ struct MetaString4<1, K, Indexes<I...>>
     // Runtime decryption. Most of the time, inlined
     inline const char* decrypt()
     {
-        for(int i = 0; i < sizeof...(I); ++i)
+        for(size_t i = 0; i < sizeof...(I); ++i)
             buffer_[i + 1] = decrypt(buffer_[i + 1], i);
         buffer_[sizeof...(I) + 1] = 0;
         LOG("--- Select MetaString4 implementation #" << 1 << " with key 0x" << hex(buffer_[0]));
@@ -111,7 +111,7 @@ struct MetaString4<2, K, Indexes<I...>>
     // Runtime decryption. Most of the time, inlined
     inline const char* decrypt()
     {
-        for(int i = 0; i < sizeof...(I); ++i)
+        for(size_t i = 0; i < sizeof...(I); ++i)
             buffer_[i] = decrypt(buffer_[i]);
         LOG("--- Select MetaString4 implementation #" << 2 << " with key 0x" << hex(key(K)));
         return buffer_;
@@ -137,7 +137,7 @@ struct MetaRandomChar4
 }}
 
 // Prefix notation
-#define DEF_OBFUSCATED4(str) MetaString4<andrivet::ADVobfuscator::MetaRandom<__COUNTER__, 3>::value, andrivet::ADVobfuscator::MetaRandomChar4<__COUNTER__>::value, Make_Indexes<sizeof(str) - 1>::type>(str)
+#define DEF_OBFUSCATED4(str) andrivet::ADVobfuscator::MetaString4<andrivet::ADVobfuscator::MetaRandom<__COUNTER__, 3>::value, andrivet::ADVobfuscator::MetaRandomChar4<__COUNTER__>::value, andrivet::ADVobfuscator::Make_Indexes<sizeof(str) - 1>::type>(str)
 
 #define OBFUSCATED4(str) (DEF_OBFUSCATED4(str).decrypt())
 
