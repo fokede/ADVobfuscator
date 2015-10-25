@@ -21,6 +21,7 @@
 #define Log_h
 
 #include <iomanip>
+#include <iostream>
 
 namespace andrivet { namespace ADVobfuscator {
     
