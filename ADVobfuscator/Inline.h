@@ -20,6 +20,10 @@
 #ifndef Inline_h
 #define Inline_h
 
+#if _MSC_VER && !__INTEL_COMPILER
+#define ALWAYS_INLINE __forceinline 
+#else
 #define ALWAYS_INLINE __attribute__((always_inline))
+#endif
 
 #endif
