@@ -21,7 +21,7 @@
 #define Log_h
 
 #include <iomanip>
-#include <iostream>
+#include <iostream> // [fokede] mingw compatibility
 
 namespace andrivet { namespace ADVobfuscator {
     
@@ -46,7 +46,7 @@ inline HexChar hex(char c, int w = 2)
     
 }}
 
-#if defined(DEBUG) && DEBUG == 1
+#if (defined(DEBUG) && DEBUG == 1) || (defined(ADVLOG) && ADVLOG == 1)
 #define LOG(str) std::cerr << str << std::endl
 #else
 #define LOG(str) ((void)0)
